@@ -1,0 +1,43 @@
+{
+  "name": "vote application backend",
+  "version": "1.0.0",
+  "description": "vote application backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vote application backend"
+  ],
+  "author": "wai myo kyaw",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.1",
+    "browserify": "^13.0.1",
+    "connect": "^3.4.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.1",
+    "ejs": "^2.5.2",
+    "emitter": "0.0.5",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "knex": "^0.11.10",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pg": "^6.0.1",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  }
+}
