@@ -81,7 +81,7 @@ router.get('/api/view_votes', (req, res) => {
 router.get('/api/view_votes_per_day/:current_date', (req, res) => {
   const results = [];
   // Get a Postgres client from the connection pool
-  var current_date = req.params.current_date;
+  var current_date = moment(req.params.current_date).format("DD/MM/YYYY");
   console.log(current_date);
   pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -108,7 +108,7 @@ router.post('/api/vote_restaurant', (req, res) => {
   const results = [];
   // Grab data from http request
   var restaurant_id = req.body.restaurant_id;
-  var on_date       = req.body.on_date;
+  var on_date       = moment(req.body.on_date).format("DD/MM/YYYY");
   var user_id       = req.body.user_id;
   // Get a Postgres client from the connection pool
   console.log("Body Data", restaurant_id, on_date, user_id);
