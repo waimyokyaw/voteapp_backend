@@ -7,7 +7,7 @@ var morgan      = require('morgan');
 var passport	= require('passport');
 var config      = require('./server/models/database'); // get db config file
 //var User        = require('./app/models/user'); // get the mongoose model
-const routes = require('./server/routes/route_index');
+var routes = require('./server/routes/route');
 
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
@@ -56,11 +56,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// demo Route (GET http://localhost:8080)
+// Browse (http://localhost:8080)
 app.get('/', function(req, res) {
-  res.send('Hello! The API is at http://localhost:' + port + '/api');
+  let api_function_list = '[view_restaurants] [view_menu] [vote_restaurant] [view_votes]';
+  res.send('Hello! The API is at http://localhost:' + port + '/api/');
 });
 
 // Start the server
 app.listen(port);
-console.log('There will be dragons: http://localhost:' + port);
+console.log('Server running at http://localhost:' + port);
