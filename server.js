@@ -12,6 +12,7 @@ var routes = require('./server/routes/route');
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
 
+
 // get our request parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -58,7 +59,7 @@ app.use((err, req, res, next) => {
 
 // Browse (http://localhost:8080)
 app.get('/', function(req, res) {
-  let api_function_list = '[view_restaurants] [view_menu] [vote_restaurant] [view_votes]';
+  //var api_function_list = '[view_restaurants] [view_menu] [vote_restaurant] [view_votes]';
   res.send('Hello! The API is at http://localhost:' + port + '/api/');
 });
 

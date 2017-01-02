@@ -1,4 +1,3 @@
-const pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://w_admin:11111@localhost:5432/voteapp';
 
 /*

@@ -4,7 +4,9 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var moment = require('moment');
+var passport = require('passport');
 var connectionString = process.env.DATABASE_URL || 'postgres://w_admin:11111@localhost:5432/voteapp';
+
 
 router.get('/api/view_restaurants', (req, res) => {
   const results = [];
@@ -91,7 +93,8 @@ router.get('/api/view_votes_per_day/:current_date', (req, res) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-    const query = client.query('select * from vote a, restaurant b where a.restaurant_id=b.id and a.on_date=CURRENT_DATE;');
+    const query = client.query('select * from vote a, restaurant b where a.restaurant_id=b.id and a.on_date=$1',
+    [current_date]);
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -104,7 +107,7 @@ router.get('/api/view_votes_per_day/:current_date', (req, res) => {
   });
 });
 
-router.post('/api/vote_restaurant', (req, res) => {
+router.post('/api/vote_restaurant', passport.authenticate('basic', { session: false }), (req, res) => {
   const results = [];
   // Grab data from http request
   var restaurant_id = req.body.restaurant_id;
