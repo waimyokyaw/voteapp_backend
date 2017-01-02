@@ -8,11 +8,13 @@ var passport	= require('passport');
 var config      = require('./server/models/database'); // get db config file
 //var User        = require('./app/models/user'); // get the mongoose model
 var routes = require('./server/routes/route');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+var User   = require('./server/models/user');
 
 var port        = process.env.PORT || 8080;
-var jwt         = require('jwt-simple');
 
-
+app.set('mysecret', 'iloveme');
 // get our request parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -5,7 +5,10 @@ var router = express.Router();
 var pg = require('pg');
 var moment = require('moment');
 var passport = require('passport');
+var bStrategy = require('passport').Strategy;
 var connectionString = process.env.DATABASE_URL || 'postgres://w_admin:11111@localhost:5432/voteapp';
+//require('../config/passport')(passport);
+var User   = require('../models/user');
 
 
 router.get('/api/view_restaurants', (req, res) => {
@@ -107,7 +110,7 @@ router.get('/api/view_votes_per_day/:current_date', (req, res) => {
   });
 });
 
-router.post('/api/vote_restaurant', passport.authenticate('basic', { session: false }), (req, res) => {
+router.post('/api/vote_restaurant', (req, res) => {
   const results = [];
   // Grab data from http request
   var restaurant_id = req.body.restaurant_id;

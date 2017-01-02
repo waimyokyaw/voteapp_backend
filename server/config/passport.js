@@ -46,7 +46,7 @@ module.exports = function(passport) {
         'basic',
         new BasicStrategy({
             // by default, local strategy uses username and password, we will override with email
-            usernameField: 'email',//'username',
+            usernameField: 'email', //'username',
             passwordField: 'password'
         },
         function(req, email, password, done) { // callback with email and password from our form
