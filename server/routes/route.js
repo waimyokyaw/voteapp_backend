@@ -8,8 +8,6 @@ var passport = require('passport');
 var bStrategy = require('passport').Strategy;
 var connectionString = process.env.DATABASE_URL || 'postgres://w_admin:11111@localhost:5432/voteapp';
 //require('../config/passport')(passport);
-var User   = require('../models/user');
-
 
 router.get('/api/view_restaurants', (req, res) => {
   const results = [];
