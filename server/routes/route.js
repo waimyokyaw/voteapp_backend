@@ -3,10 +3,10 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-//var path = require('path');
+var moment = require('moment');
 var connectionString = process.env.DATABASE_URL || 'postgres://w_admin:11111@localhost:5432/voteapp';
 
-router.get('/api/view_restaurants', (req, res, next) => {
+router.get('/api/view_restaurants', (req, res) => {
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -30,7 +30,7 @@ router.get('/api/view_restaurants', (req, res, next) => {
   });
 });
 
-router.get('/api/view_menu', (req, res, next) => {
+router.get('/api/view_menu', (req, res) => {
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -54,7 +54,7 @@ router.get('/api/view_menu', (req, res, next) => {
   });
 });
 
-router.get('/api/view_votes', (req, res, next) => {
+router.get('/api/view_votes', (req, res) => {
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -78,7 +78,7 @@ router.get('/api/view_votes', (req, res, next) => {
   });
 });
 
-router.get('/api/view_votes_per_day/:current_date', (req, res, next) => {
+router.get('/api/view_votes_per_day/:current_date', (req, res) => {
   const results = [];
   // Get a Postgres client from the connection pool
   var current_date = req.params.current_date;
@@ -104,7 +104,7 @@ router.get('/api/view_votes_per_day/:current_date', (req, res, next) => {
   });
 });
 
-router.post('/api/vote_restaurant', (req, res, next) => {
+router.post('/api/vote_restaurant', (req, res) => {
   const results = [];
   // Grab data from http request
   var restaurant_id = req.body.restaurant_id;
@@ -174,8 +174,8 @@ router.post('/api/add_menu', (req, res) => {
   // Grab data from http request
   var name = req.body.name;
   var ingredient       = req.body.ingredient;
-  var on_date       = req.body.on_date;
-  var updated         = req.body.updated;
+  var on_date       = moment(req.body.on_date).format("DD/MM/YYYY");
+  //var updated         = req.body.updated;
   // Get a Postgres client from the connection pool
 
   pg.connect(connectionString, (err, client, done) => {
@@ -186,8 +186,8 @@ router.post('/api/add_menu', (req, res) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Insert Data
-    client.query('INSERT INTO menu(name, ingredient, on_date, updated) values($1, $2, $3, $4)',
-    [name, JSON.stringify(ingredient), on_date, updated]);
+    client.query('INSERT INTO menu(name, ingredient, on_date) values($1, $2, $3)',
+    [name, JSON.stringify(ingredient), on_date]);
     // SQL Query > Select Data
     const query = client.query('SELECT * FROM menu ORDER BY id ASC');
     // Stream results back one row at a time
@@ -207,7 +207,7 @@ router.post('/api/add_restaurant_menu', (req, res) => {
   // Grab data from http request
   var restaurant_id       = req.body.restaurant_id;
   var menu_id       = req.body.menu_id;
-  var on_date         = req.body.on_date;
+  var on_date         = moment(req.body.on_date).format("DD/MM/YYYY");
   // Get a Postgres client from the connection pool
 
   pg.connect(connectionString, (err, client, done) => {
